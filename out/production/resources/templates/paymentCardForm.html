@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Kwiaciarnia internetowa</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mystyle.css}"/>
+</head>
+<body>
+
+<header>
+    <table width="100%">
+        <thead>
+        <tr>
+            <th style="width: 20%"></th>
+            <th style="width: 60%">
+                <div class="whiteNav">
+                    <div class="greenNav">
+                        Kwiatek
+                    </div>
+                </div>
+            </th>
+            <th style="width: 20%" align="right">
+                <table>
+                    <tr>
+                        <td style="padding-right: 10px">
+                            <img src="images/user.png" height="65" width="65" class="userImage"/>
+                        </td>
+                        <td align="left">
+                            <table>
+                                <tr>
+                                    <td style="color: gray">
+                                        Użytkownik
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Marcin Wątroba
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        </thead>
+    </table>
+</header>
+
+<nav style="padding-bottom: 8px">
+    <table width="100%" align="center">
+        <thead>
+        <tr>
+            <th style="width: 20%"></th>
+
+            <th style="width: 60%;" align="center">
+                <table border="1px" class="navTable">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a href="/"><b>Oferta</b></a>
+                        </th>
+                        <th>
+                            <a href="/basket"><b>Koszyk</b></a>
+                        </th>
+                        <th>
+                            <a href="/orders"><b>Moje zamówienia</b></a>
+                        </th>
+                        <th>
+                            Moje konto
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </th>
+
+            <th style="width: 20%"></th>
+        </tr>
+        </thead>
+    </table>
+</nav>
+
+<table style="width: 100%">
+    <thead>
+    <th style="width: 20%">
+        <div class="adsContainer">
+            MIEJSCE NA TWOJĄ <br/>REKLAMĘ
+        </div>
+    </th>
+    <th style="width: 60%" align="top">
+        <div class="mainBorder">
+            <div class="mainContainer">
+                <form action="/executePaymentCard" method="post">
+                    Płatność kartą za zamówienie #<span th:text="${orderId}"></span><br/>
+                    Kwota zamówienie wynosi 660zł<br/>
+                    <table>
+                        <tr>
+                            <td>
+                                Rodzaj płatności
+                            </td>
+                            <td>
+                                <input type="radio" name="cardType" value="masterCard" th:required="true"/> Master Card
+                            </td>
+                            <td>
+                                <input type="radio" name="cardType" value="visa"/> Visa
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Numer karty
+                            </td>
+                            <td colspan="2">
+                                <input type="text" name="number" width="100px" th:required="true"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Data ważności
+                            </td>
+                            <td colspan="2">
+                                <input type="text" name="date" width="100px"/>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                CVV
+                            </td>
+                            <td colspan="2">
+                                <input type="text" name="cvv" width="100px" th:required="true"/>
+
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="orderId" th:value="${orderId}"/>
+                    <input type="submit" value="Zapłać"/>
+                </form>
+
+            </div>
+        </div>
+    </th>
+    <th style="width: 20%">
+        <div class="adsContainer">
+            MIEJSCE NA TWOJĄ <br/>REKLAMĘ
+        </div>
+    </th>
+    </thead>
+</table>
+
+</body>
+</html>

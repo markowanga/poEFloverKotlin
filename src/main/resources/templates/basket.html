@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Kwiaciarnia internetowa</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mystyle.css}"/>
+</head>
+<body>
+
+<header>
+    <table width="100%">
+        <thead>
+        <tr>
+            <th style="width: 20%"></th>
+            <th style="width: 60%">
+                <div class="whiteNav">
+                    <div class="greenNav">
+                        Kwiatek
+                    </div>
+                </div>
+            </th>
+            <th style="width: 20%" align="right">
+                <table>
+                    <tr>
+                        <td style="padding-right: 10px">
+                            <img src="images/user.png" height="65" width="65" class="userImage"/>
+                        </td>
+                        <td align="left">
+                            <table>
+                                <tr>
+                                    <td style="color: gray">
+                                        Użytkownik
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Marcin Wątroba
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        </thead>
+    </table>
+</header>
+
+<nav style="padding-bottom: 8px">
+    <table width="100%" align="center">
+        <thead>
+        <tr>
+            <th style="width: 20%"></th>
+
+            <th style="width: 60%;" align="center">
+                <table border="1px" class="navTable">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a href="/"><b>Oferta</b></a>
+                        </th>
+                        <th>
+                            <a href="/basket"><b>Koszyk</b></a>
+                        </th>
+                        <th>
+                            <a href="/orders"><b>Moje zamówienia</b></a>
+                        </th>
+                        <th>
+                            Moje konto
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </th>
+
+            <th style="width: 20%"></th>
+        </tr>
+        </thead>
+    </table>
+</nav>
+
+<table style="width: 100%">
+    <thead>
+    <th style="width: 20%">
+        <div class="adsContainer">
+            MIEJSCE NA TWOJĄ <br/>REKLAMĘ
+        </div>
+    </th>
+    <th style="width: 60%" align="top">
+        <div class="mainBorder">
+            <div class="mainContainer">
+                Mój koszyk<br/>
+                <span th:text="${log}" style="color: green;"></span>
+                <div class="basketPosition" th:each="productWKoszyku: ${koszyk.produktWKoszykuList}">
+                    <table style="width: 100%">
+                        <tr>
+                            <th>
+                                <img th:src="${productWKoszyku.produkt.imgPath}" width="180" height="180"/>
+                            </th>
+                            <th>
+                                <table>
+                                    <tr>
+                                        <td align="left" th:text="${productWKoszyku.produkt.nazwa}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="500px" align="right">
+                                            <table class="positionSummary">
+                                                <tr>
+                                                    <td align="right">
+                                                        Cena za sztukę:
+                                                    </td>
+                                                    <td align="right" width="50px"
+                                                        th:text="${productWKoszyku.produkt.cena}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right">
+                                                        Ilość:
+                                                    </td>
+                                                    <td align="right" th:text="${productWKoszyku.ilosc}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border-top: 3px solid black;" align="right">
+                                                        Łącznie:
+                                                    </td>
+                                                    <td style="border-top: 3px solid black;" align="right"
+                                                        th:text="${productWKoszyku.ilosc * productWKoszyku.produkt.cena}">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">
+                                            <form action="/basket" method="post">
+                                                <input type="hidden" name="productToChange"
+                                                       th:value="${productWKoszyku.produkt.id}"/>
+                                                <label>
+                                                    Ilość:
+                                                    <input type="number" name="countToChange"
+                                                           th:value="${productWKoszyku.ilosc}" min="1" max="100"
+                                                           th:required="true"/>
+                                                    <!--<input type="text" name="countToChange" style="width: 50px"/>-->
+                                                </label>
+                                                <input type="submit" value="Zmień"/>
+                                            </form>
+
+                                            <form action="/basket" method="post">
+                                                <input type="hidden" name="productToRemove"
+                                                       th:value="${productWKoszyku.produkt.id}"/>
+                                                <input type="submit" value="Usuń"/>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <form action="/basketSummary" method="post">
+                    <input type="submit" value="Podsumuj koszyk"/>
+                </form>
+            </div>
+        </div>
+    </th>
+    <th style="width: 20%">
+        <div class="adsContainer">
+            MIEJSCE NA TWOJĄ <br/>REKLAMĘ
+        </div>
+    </th>
+    </thead>
+</table>
+
+</body>
+</html>

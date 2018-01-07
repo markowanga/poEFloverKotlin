@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Kwiaciarnia internetowa</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mystyle.css}"/>
+</head>
+<body>
+
+<header>
+    <table width="100%">
+        <thead>
+        <tr>
+            <th style="width: 20%"></th>
+            <th style="width: 60%">
+                <div class="whiteNav">
+                    <div class="greenNav">
+                        Kwiatek
+                    </div>
+                </div>
+            </th>
+            <th style="width: 20%" align="right">
+                <table>
+                    <tr>
+                        <td style="padding-right: 10px">
+                            <img src="images/user.png" height="65" width="65" class="userImage"/>
+                        </td>
+                        <td align="left">
+                            <table>
+                                <tr>
+                                    <td style="color: gray">
+                                        Użytkownik
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Marcin Wątroba
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        </thead>
+    </table>
+</header>
+
+<nav style="padding-bottom: 8px">
+    <table width="100%" align="center">
+        <thead>
+        <tr>
+            <th style="width: 20%"></th>
+
+            <th style="width: 60%;" align="center">
+                <table border="1px" class="navTable">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a href="/"><b>Oferta</b></a>
+                        </th>
+                        <th>
+                            <a href="/basket"><b>Koszyk</b></a>
+                        </th>
+                        <th>
+                            <a href="/orders"><b>Moje zamówienia</b></a>
+                        </th>
+                        <th>
+                            Moje konto
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </th>
+
+            <th style="width: 20%"></th>
+        </tr>
+        </thead>
+    </table>
+</nav>
+
+<table style="width: 100%">
+    <thead>
+    <th style="width: 20%">
+        <div class="adsContainer">
+            MIEJSCE NA TWOJĄ <br/>REKLAMĘ
+        </div>
+    </th>
+    <th style="width: 60%" align="top">
+        <div class="mainBorder">
+            <div class="mainContainer">
+                Podsumowanie koszyka<br/>
+                <table>
+                    <tr class="trLight">
+                        <td align="left" width="200px">
+                            Produkt
+                        </td>
+                        <td align="left" width="120px">
+                            Cena detaliczna
+                        </td>
+                        <td align="left" width="50px">
+                            Ilość
+                        </td>
+                        <td align="left" width="100px">
+                            Łączna cena
+                        </td>
+                    </tr>
+                    <tr th:each="indKosz: ${koszykInd}" th:class="${indKosz}%2==1?'trLight':'trDark'">
+                        <td align="left" th:text="${koszyk.produktWKoszykuList[indKosz].produkt.nazwa}"></td>
+                        <td align="left" th:text="${koszyk.produktWKoszykuList[indKosz].produkt.cena}"></td>
+                        <td align="left" th:text="${koszyk.produktWKoszykuList[indKosz].ilosc}"></td>
+                        <td align="left" th:text="${koszyk.produktWKoszykuList[indKosz].getAllPrice()}"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="right" style="padding: 8px">
+                            <table>
+                                <tr>
+                                    <td style="border-top: 3px solid black" th:text="${koszyk.getCostString()}">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                Adres dostawy<br/>
+                <form action="/createNewOrder" method="post">
+                    <input type="radio" name="addressRatio" value="used" id="ratioOldAddress" onclick="selectNonRequired()"/>
+                    Ostatnio używany adres<br/>
+                    <select name="addressId">
+                        <option th:each="address: ${addresses}" th:value="${address.id}"
+                                th:text="${address.getAddressString()}"></option>
+                    </select>
+                    <br/>
+                    <input type="radio" name="addressRatio" value="new" id="ratioNewAddress" onclick="selectRequired()"/>
+                     Nowy adres<br/>
+                    <table>
+                        <tr>
+                            <td>
+                                Ulica
+                            </td>
+                            <td>
+                                <input type="text" name="street" width="100px" id="streetInput"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Nr domu / mieszkania
+                            </td>
+                            <td>
+                                <input type="text" name="number" width="100px" id="numberInput"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kod pocztowy
+                            </td>
+                            <td>
+                                <input type="text" name="postalCode" width="100px" id="postalCodeInput"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Miejscowość
+                            </td>
+                            <td>
+                                <input type="text" name="city" width="100px"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    Metoda płatności<br/>
+                    <input type="radio" name="paymentRatio" value="online"/> Płatność online
+                    <input type="radio" name="paymentRatio" value="cash"/> Płatność przy odbiorze<br/>
+                    <input type="submit" value="Złóż zamówienie"/>
+                </form>
+            </div>
+        </div>
+    </th>
+    <th style="width: 20%">
+        <div class="adsContainer">
+            MIEJSCE NA TWOJĄ <br/>REKLAMĘ
+        </div>
+    </th>
+    </thead>
+</table>
+
+<script>
+    var i1 = document.getElementById("streetInput");
+    var i2 = document.getElementById("numberInput");
+    var i3 = document.getElementById("postalCodeInput");
+
+    function selectRequired() {
+        i1.setAttribute("required", "true");
+        i2.setAttribute("required", "true");
+        i3.setAttribute("required", "true");
+    }
+
+    function selectNonRequired() {
+        i1.removeAttribute("required");
+        i2.removeAttribute("required");
+        i3.removeAttribute("required");
+    }
+</script>
+
+</body>
+</html>

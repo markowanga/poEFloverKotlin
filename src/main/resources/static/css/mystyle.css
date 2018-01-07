@@ -1,0 +1,80 @@
+.greenNav {
+    background: darkseagreen;
+    padding: 20px 180px;
+    font-size: 50px;
+}
+
+.whiteNav {
+    background: white;
+    padding: 8px;
+    display: inline-block;
+}
+
+.navTable th {
+    padding-left: 35px;
+    padding-right: 35px;
+    background: white;
+}
+
+body {
+    background: #DCEDC8;
+}
+
+.navTable, .navTable th {
+    border-collapse: collapse;
+    border: 3px solid black;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.adsContainer {
+    height: 350px;
+    padding-top: 50%;
+    background: white;
+}
+
+.mainBorder {
+    margin-left: 8px;
+    margin-right: 8px;
+    background: white;
+    border: 3px solid black;
+}
+
+.mainContainer {
+    padding: 20px;
+}
+
+.offerPosition {
+    width: 500px;
+    margin-left: 8px;
+    margin-right: 8px;
+    background: white;
+    border: 3px solid black;
+    margin-bottom: 15px;
+}
+
+.basketPosition {
+    width: 600px;
+    margin-left: 8px;
+    margin-right: 8px;
+    background: white;
+    margin-bottom: 15px;
+    border: 3px solid black;
+}
+
+.userImage {
+    margin-right: 20px;
+}
+
+.trLight td {
+    padding: 5px;
+    background: lightgray
+}
+
+.trDark td {
+    background: #EEEEEE;
+    padding: 5px;
+}
